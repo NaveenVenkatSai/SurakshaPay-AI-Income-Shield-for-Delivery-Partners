@@ -128,7 +128,7 @@ We selected a web application because:
 - Bala  
 - Tarak  
 - Harsha  
-- Sreyeshaa  
+- Sreyesha 
 
 ---
 
