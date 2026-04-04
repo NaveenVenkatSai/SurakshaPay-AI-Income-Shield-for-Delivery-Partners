@@ -235,6 +235,30 @@ cd surakshapay-backend && mvn spring-boot:run
 cd surakshapay-frontend && npm run dev
 ```
 
+## ☁️ Vercel Deployment (Fixed 404 Issue)
+
+### Frontend (surakshapay-frontend)
+1. `cd surakshapay-frontend`
+2. `npm install`
+3. Connect to Vercel: `npm i -g vercel` then `vercel --prod`
+4. **Set env var in Vercel dashboard**: `VITE_API_URL=https://your-backend-url.vercel.app`
+
+**vercel.json added**: Fixes SPA routing 404 errors!
+
+### Backend (surakshapay-backend) 
+Java/Spring Boot → Deploy to Railway/Heroku or Render
+```
+mvn clean package -DskipTests
+java -jar target/*.jar
+```
+
+### Test Prod
+```
+Root: ✅ Landing Page
+/dashboard: ✅ SPA routing works!
+API calls: Need VITE_API_URL set
+```
+
 ## 🎉 Built for Guidewire DEVTrails 2026
 **Team**: Naveen, Bala, Tarak, Harsha, Sreyesha
 
