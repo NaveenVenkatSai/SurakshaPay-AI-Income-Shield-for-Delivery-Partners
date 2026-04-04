@@ -1,54 +1,440 @@
-# SurakshaPay: Automated Parametric Insurance System 🌤️💸
+# 🚀 SurakshaPay – Income Protection for Delivery Partners
 
-SurakshaPay is a Guidewire-style parametric insurance platform that completely automates payout processing based on external weather triggers. Designed for a Hackathon environment, this project demonstrates end-to-end parametric lifecycle handling: from dynamic environmental sensing to instant simulated UPI settlements with zero manual intervention.
+## 📌 About the Problem
+Delivery partners working with platforms like Zomato and Swiggy depend on daily earnings. But many times, due to heavy rain, extreme heat, pollution, or sudden curfews, they are not able to work properly.
 
-## 🚀 Problem Statement
-Traditional claim processing forces users into prolonged documentation cycles, manual checks, and high overhead costs. **SurakshaPay drops the traditional claim model entirely.** By leveraging parametric thresholds (e.g. `Rainfall > 50mm` or `Temperature > 45°C`), our AI automation engine instantly spots eligible policies, routes payouts automatically, rejects fraudulent overlapping claims securely, and settles limits directly into a user's wallet via UPI.
+Because of this, they lose a part of their income. Right now, there is no proper system that helps them recover this loss.
 
-## 🏗️ Architecture Flow
-1. **Trigger Engine (`ParametricTriggerService`):** Connects to mock IMD APIs/scheduled jobs evaluating real-time local conditions. 
-2. **Fraud Gateway:** Scans the database preventing overlapping (within 5 minutes) duplicate payout queries mitigating system leakage.
-3. **Core Registry & State (`PayoutRepository`):** Maps Payout models logging an initial `PENDING` state directly to explicit `User` records.
-4. **Settlement Processor (`PaymentService`):** Hits a simulated UPI settlement layer verifying transactions executing 1-time fallback Retry execution hooks on drops.
-5. **Event Alerting (`AlertService`):** Pushes asynchronous messages indexing exact `SUCCESS`, `FAILED`, and trigger statistics globally visible instantly to affected endpoints.
 
-## 💻 Tech Stack
-- **Backend:** Java Sprint Boot (JPA, Hibernate, Maven)
-- **Database:** MySQL (Native Schema Mappings, strict relational mappings dropped in favor of raw data optimization)
-- **Frontend:** React + Vite (Tailwind, Lucide Icons, Recharts)
-- **Execution:** Polling `setInterval` hooks rendering Real-time React UI cards.
+## 💡 Our Idea
+We are building **SurakshaPay**, a simple insurance platform that helps delivery partners protect their income.
 
-## 🛠️ Setup Steps
-### Prerequisites
-- JDK 17+
-- Node.js 18+
-- MySQL Server (Root User/Password configured in `application.properties`)
+Instead of complicated insurance claims, our system works automatically:
+- It checks real-time conditions like weather
+- If a disruption happens, it detects it
+- Then it gives compensation for lost working hours
 
-### Execution
-1. **Start Backend (Port 8080)**:
-   ```bash
-   cd surakshapay-backend
-   mvn compile spring-boot:run -Dmaven.test.skip=true
-   ```
-2. **Start Frontend (Port 5173)**:
-   ```bash
-   cd surakshapay-frontend
-   npm install
-   npm run dev
-   ```
 
-## 📡 Core API Endpoints
-- **Transactions & Triggers:**
-  - `POST /api/admin/simulate-trigger` - Initiates the Hackathon demo event explicitly generating Heat/Rain executions locally!
-  - `GET /api/payouts?userId={id}` - Fetches payout transactions including real-time `status` flags tracking Settlements.
-- **Aggregators:**
-  - `GET /api/dashboard/{userId}` - Fetches explicitly localized stats array, Payout lists, total limits, and top Alerts seamlessly.
-  - `GET /api/dashboard/alerts?userId={id}` - Dedicated Live Event streams pulling Guidewire logic executions!
+## 👤 Target Users
+We are focusing on:
+**Food delivery partners (Zomato / Swiggy)**
 
-## 🎯 Demo Steps (Hackathon Flow)
-1. **Login** to local Dashboard. 
-2. Observe the Active Policy coverage limits and the green `AI Risk Score`.
-3. Hit the **`🚀 Trigger Alert`** button natively firing the `Heat` trigger.
-4. The Backend will generate the explicitly hooked Payload resolving the new Payout.
-5. The `PaymentService` will artificially process the settlement hook issuing either `✅ SUCCESS` or `❌ FAILED`.
-6. Watch the UI automatically poll (every 15s) and render the updated live Alerts directly below the graphs, instantly formatting the new balance arrays natively!
+### Example:
+A delivery partner usually earns around ₹800 per day.  
+If heavy rain happens, they may lose 2–3 hours of work.  
+Our system will detect this and provide compensation automatically.
+
+
+## ⚙️ How the System Works
+
+1. User registers with basic details  
+2. System calculates risk based on location  
+3. User selects a weekly plan  
+4. Platform continuously checks weather data  
+5. If conditions cross a limit (like heavy rain), a claim is triggered  
+6. Payment is processed automatically (simulated)
+
+
+## 💰 Weekly Plans
+
+| Plan     | Cost        | Coverage            |
+|----------|------------|--------------------|
+| Basic    | ₹20/week   | Up to 2 hours/day  |
+| Standard | ₹40/week   | Up to 4 hours/day  |
+| Pro      | ₹60/week   | Up to 6 hours/day  |
+
+The premium may slightly change based on the risk in that area.
+
+
+## 🌦 When Does It Trigger?
+
+We are using simple conditions like:
+
+- Heavy Rain  
+- Very High Temperature  
+- Poor Air Quality  
+- Curfew or sudden restrictions  
+
+If any of these affect working hours, the system will trigger a payout.
+
+
+## 🤖 Where AI is Used
+
+We are using basic AI/logic in three places:
+
+- To estimate how risky a location is  
+- To adjust weekly premium  
+- To check for fake or duplicate claims  
+
+
+## 🔌 Tools & Technologies
+
+- Frontend: React.js  
+- Backend: Node.js (Express)  
+- Database: MongoDB / Firebase  
+- APIs: Weather API (or mock data)  
+- Payments: Mock / test mode  
+
+
+## 🖥 Why We Chose Web App
+
+We selected a web application because:
+- It is easier to build in less time  
+- It works on both mobile and desktop  
+- It is enough for demo purposes  
+
+
+## 📊 Features We Plan to Show
+
+- Simple registration  
+- Plan selection  
+- Live risk display  
+- Automatic claim trigger  
+- Simulated payout  
+- Basic dashboard  
+
+
+## 📅 Plan for Next Phases
+
+- Add better AI logic for pricing  
+- Improve fraud detection  
+- Add proper dashboard  
+- Simulate real-time payout system  
+
+
+## 🎯 What Makes Our Idea Different
+
+- No manual claim process  
+- Simple weekly plans  
+- Automatic detection of problems  
+- Focus only on income loss (not health or vehicle)
+## 🔐 Adversarial Defense & Anti-Spoofing Strategy
+
+As identified in the threat scenario, simple GPS-based verification is not reliable. Our system is designed to handle such advanced fraud attempts using multiple layers of validation instead of relying on a single data point.
+
+---
+
+### 1. Differentiation: Genuine User vs Spoofed User
+
+Our approach is based on **behavior + environment matching**, not just location.
+
+For a genuine delivery partner:
+- Their movement pattern will be continuous and realistic  
+- Their activity will match working hours and delivery behavior  
+- Their location will align with real-world environmental conditions  
+
+For a spoofed user:
+- Location may suddenly jump to a high-risk zone  
+- No actual movement or inconsistent movement patterns  
+- Activity does not match expected delivery behavior  
+
+We use this combination of signals to identify suspicious patterns instead of trusting GPS alone.
+
+---
+
+### 2. Data Points Used for Detection
+
+To detect fraud, our system analyzes multiple data points:
+
+- 📍 GPS consistency (movement vs sudden jumps)  
+- 📶 Network signal strength and stability  
+- 📱 Device activity (screen usage, app interaction)  
+- ⏱ Time-based activity patterns (working hours vs inactive periods)  
+- 🌦 Weather data correlation (actual vs claimed condition)  
+- 📊 Historical behavior of the user  
+- 👥 Pattern detection (multiple users claiming from same zone at same time)  
+
+This helps identify coordinated fraud attempts such as group-based spoofing.
+
+---
+
+### 3. UX Balance: Handling Flagged Claims
+
+We ensure that genuine users are not unfairly penalized.
+
+If a claim is flagged:
+- It is marked as **"Under Review" instead of rejected immediately**  
+- Partial payout may be provided as a safety measure  
+- User may be asked for simple verification (like app activity check)  
+
+For genuine cases:
+- Claims are approved quickly  
+- No extra steps are required  
+
+For suspicious patterns:
+- Additional verification is triggered  
+- Repeated suspicious behavior may reduce trust score  
+
+This approach maintains a balance between **fraud prevention and user trust**.
+
+---
+
+### ✅ Summary
+
+Our system uses a **multi-layer verification approach** combining:
+- Behavioral analysis  
+- Environmental validation  
+- Pattern detection  
+
+This ensures that even advanced spoofing attacks can be identified, while still providing a smooth experience for honest delivery partners.
+
+## 👨‍💻 Team Members
+
+- Naveen  
+- Bala  
+- Tarak  
+- Harsha  
+- Sreyesha 
+
+---
+
+## 🏁 Final Note
+
+Our goal is to create a simple and practical solution that can actually help delivery partners manage income loss during difficult conditions.
+
+---
+
+*Built for Guidewire DEVTrails 2026*
+>>>>>>> 74059e9c87dc88749d5a7b30d9b16a82dcb10b88
+=======
+# 🚀 SurakshaPay – Income Protection for Delivery Partners (Full Stack Implementation)
+
+## 📌 About the Problem
+Delivery partners working with platforms like Zomato and Swiggy depend on daily earnings. But due to heavy rain, extreme heat, pollution, or sudden curfews, they lose income. SurakshaPay provides **parametric insurance** with automatic payouts - no claims needed!
+
+## 💡 Key Features
+- **Automatic Triggers**: Real-time weather/disruption detection
+- **AI Risk Engine**: Dynamic pricing based on location risk
+- **Instant Payouts**: Simulated UPI settlements
+- **Fraud Protection**: Multi-layer anti-spoofing validation
+- **Full Dashboard**: Live alerts, wallet balance, policy management
+
+## 🏗️ Tech Stack
+**Backend**: Java Spring Boot + JPA + MySQL  
+**Frontend**: React + Vite + Tailwind  
+**APIs**: Weather simulation, parametric triggers, payment processing
+
+## 🎯 Demo Flow
+1. Register/Login → Select Plan → View Dashboard
+2. Admin triggers weather event → AI validates → Auto-payout processed
+3. Live updates in UI with real-time polling
+
+## 💰 Plans
+| Plan | Weekly Cost | Coverage |
+|------|-------------|----------|
+| Basic | ₹20 | 2 hrs/day |
+| Standard | ₹40 | 4 hrs/day |
+| Pro | ₹60 | 6 hrs/day |
+
+## 🔧 Quick Start
+```bash
+# Backend
+cd surakshapay-backend && mvn spring-boot:run
+
+# Frontend  
+cd surakshapay-frontend && npm run dev
+```
+
+## 🎉 Built for Guidewire DEVTrails 2026
+**Team**: Naveen, Bala, Tarak, Harsha, Sreyesha
+
+*Automatic income protection - Zero manual claims!*
+=======
+# 🚀 SurakshaPay – Income Protection for Delivery Partners
+
+## 📌 About the Problem
+Delivery partners working with platforms like Zomato and Swiggy depend on daily earnings. But many times, due to heavy rain, extreme heat, pollution, or sudden curfews, they are not able to work properly.
+
+Because of this, they lose a part of their income. Right now, there is no proper system that helps them recover this loss.
+
+
+## 💡 Our Idea
+We are building **SurakshaPay**, a simple insurance platform that helps delivery partners protect their income.
+
+Instead of complicated insurance claims, our system works automatically:
+- It checks real-time conditions like weather
+- If a disruption happens, it detects it
+- Then it gives compensation for lost working hours
+
+
+## 👤 Target Users
+We are focusing on:
+**Food delivery partners (Zomato / Swiggy)**
+
+### Example:
+A delivery partner usually earns around ₹800 per day.  
+If heavy rain happens, they may lose 2–3 hours of work.  
+Our system will detect this and provide compensation automatically.
+
+
+## ⚙️ How the System Works
+
+1. User registers with basic details  
+2. System calculates risk based on location  
+3. User selects a weekly plan  
+4. Platform continuously checks weather data  
+5. If conditions cross a limit (like heavy rain), a claim is triggered  
+6. Payment is processed automatically (simulated)
+
+
+## 💰 Weekly Plans
+
+| Plan     | Cost        | Coverage            |
+|----------|------------|--------------------|
+| Basic    | ₹20/week   | Up to 2 hours/day  |
+| Standard | ₹40/week   | Up to 4 hours/day  |
+| Pro      | ₹60/week   | Up to 6 hours/day  |
+
+The premium may slightly change based on the risk in that area.
+
+
+## 🌦 When Does It Trigger?
+
+We are using simple conditions like:
+
+- Heavy Rain  
+- Very High Temperature  
+- Poor Air Quality  
+- Curfew or sudden restrictions  
+
+If any of these affect working hours, the system will trigger a payout.
+
+
+## 🤖 Where AI is Used
+
+We are using basic AI/logic in three places:
+
+- To estimate how risky a location is  
+- To adjust weekly premium  
+- To check for fake or duplicate claims  
+
+
+## 🔌 Tools & Technologies
+
+- Frontend: React.js  
+- Backend: Node.js (Express)  
+- Database: MongoDB / Firebase  
+- APIs: Weather API (or mock data)  
+- Payments: Mock / test mode  
+
+
+## 🖥 Why We Chose Web App
+
+We selected a web application because:
+- It is easier to build in less time  
+- It works on both mobile and desktop  
+- It is enough for demo purposes  
+
+
+## 📊 Features We Plan to Show
+
+- Simple registration  
+- Plan selection  
+- Live risk display  
+- Automatic claim trigger  
+- Simulated payout  
+- Basic dashboard  
+
+
+## 📅 Plan for Next Phases
+
+- Add better AI logic for pricing  
+- Improve fraud detection  
+- Add proper dashboard  
+- Simulate real-time payout system  
+
+
+## 🎯 What Makes Our Idea Different
+
+- No manual claim process  
+- Simple weekly plans  
+- Automatic detection of problems  
+- Focus only on income loss (not health or vehicle)
+## 🔐 Adversarial Defense & Anti-Spoofing Strategy
+
+As identified in the threat scenario, simple GPS-based verification is not reliable. Our system is designed to handle such advanced fraud attempts using multiple layers of validation instead of relying on a single data point.
+
+---
+
+### 1. Differentiation: Genuine User vs Spoofed User
+
+Our approach is based on **behavior + environment matching**, not just location.
+
+For a genuine delivery partner:
+- Their movement pattern will be continuous and realistic  
+- Their activity will match working hours and delivery behavior  
+- Their location will align with real-world environmental conditions  
+
+For a spoofed user:
+- Location may suddenly jump to a high-risk zone  
+- No actual movement or inconsistent movement patterns  
+- Activity does not match expected delivery behavior  
+
+We use this combination of signals to identify suspicious patterns instead of trusting GPS alone.
+
+---
+
+### 2. Data Points Used for Detection
+
+To detect fraud, our system analyzes multiple data points:
+
+- 📍 GPS consistency (movement vs sudden jumps)  
+- 📶 Network signal strength and stability  
+- 📱 Device activity (screen usage, app interaction)  
+- ⏱ Time-based activity patterns (working hours vs inactive periods)  
+- 🌦 Weather data correlation (actual vs claimed condition)  
+- 📊 Historical behavior of the user  
+- 👥 Pattern detection (multiple users claiming from same zone at same time)  
+
+This helps identify coordinated fraud attempts such as group-based spoofing.
+
+---
+
+### 3. UX Balance: Handling Flagged Claims
+
+We ensure that genuine users are not unfairly penalized.
+
+If a claim is flagged:
+- It is marked as **“Under Review” instead of rejected immediately**  
+- Partial payout may be provided as a safety measure  
+- User may be asked for simple verification (like app activity check)  
+
+For genuine cases:
+- Claims are approved quickly  
+- No extra steps are required  
+
+For suspicious patterns:
+- Additional verification is triggered  
+- Repeated suspicious behavior may reduce trust score  
+
+This approach maintains a balance between **fraud prevention and user trust**.
+
+---
+
+### ✅ Summary
+
+Our system uses a **multi-layer verification approach** combining:
+- Behavioral analysis  
+- Environmental validation  
+- Pattern detection  
+
+This ensures that even advanced spoofing attacks can be identified, while still providing a smooth experience for honest delivery partners.
+
+## 👨‍💻 Team Members
+
+- Naveen  
+- Bala  
+- Tarak  
+- Harsha  
+- Sreyesha 
+
+---
+
+## 🏁 Final Note
+
+Our goal is to create a simple and practical solution that can actually help delivery partners manage income loss during difficult conditions.
+
+---
+
+*Built for Guidewire DEVTrails 2026*
+>>>>>>> 74059e9c87dc88749d5a7b30d9b16a82dcb10b88
