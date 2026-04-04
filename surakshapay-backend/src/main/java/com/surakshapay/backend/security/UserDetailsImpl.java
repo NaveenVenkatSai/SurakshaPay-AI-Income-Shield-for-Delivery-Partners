@@ -1,0 +1,85 @@
+package com.surakshapay.backend.security;
+
+import com.surakshapay.backend.models.User;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import lombok.AllArgsConstructor;
+
+import java.util.Collection;
+import java.util.Collections;
+
+@AllArgsConstructor
+public class UserDetailsImpl implements UserDetails {
+
+    private Long id;
+    private String name;
+    private String email;
+    private String password;
+    private String city;
+    private String location;
+    private Collection<? extends GrantedAuthority> authorities;
+
+    public static UserDetailsImpl build(User user) {
+        GrantedAuthority authority = new SimpleGrantedAuthority("ROLE_" + user.getRole().name());
+        return new UserDetailsImpl(
+                user.getId(),
+                user.getName(),
+                user.getEmail(),
+                user.getPassword(),
+                user.getCity(),
+                user.getLocation(),
+                Collections.singletonList(authority));
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getCity() { return city; }
+    
+    public String getLocation() { return location; }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return authorities;
+    }
+
+    @Override
+    public String getPassword() {
+        return password;
+    }
+
+    @Override
+    public String getUsername() {
+        return email;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
+}
